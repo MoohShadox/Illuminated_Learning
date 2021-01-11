@@ -7,6 +7,41 @@ from deap import base
 from deap import benchmarks
 from deap import creator
 from deap import tools
+from scipy.spatial import KDTree
+
+import deap
+import cma
+import gym, gym_fastsim
+from deap import *
+import numpy as np
+from scipy.spatial import KDTree
+from copy import deepcopy
+
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+import numpy as np
+
+import datetime
+from deap import algorithms
+from deap import base
+from deap import benchmarks
+from deap import creator
+from deap import tools
+
+import array
+import random
+import operator
+import math
+import os.path
+
+
+from scoop import futures
+
+#from novelty_search_vanila import *
+import os
+
 
 class Novelty_Archive():
     def __init__(self, k=15, lambda_=10, **kwargs):
@@ -77,7 +112,7 @@ class Novelty_Archive_random(Novelty_Archive):
 
 
 class Shine_Archive(QuadTree):
-    def __init__(self, width, height, alpha = 7, beta = 80):
+    def __init__(self, width, height, alpha = 7, beta = 10):
         super().__init__([],width, height)
         rect = Rect(0, 0, width, height)
         self.alpha = alpha
@@ -136,3 +171,4 @@ class Shine_Archive(QuadTree):
         
         if(len(node.val) > self.beta):
             print("size after : ",len(node.val), " , level : ",node.level)
+

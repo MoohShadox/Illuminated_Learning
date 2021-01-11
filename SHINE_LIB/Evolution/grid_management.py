@@ -77,6 +77,7 @@ class Grid():
             self.content[(x,y)] = ind
         elif ((x,y) not in self.content):
             self.content[(x,y)] = ind
+
     
     def get_stats(self, resdir, nb_eval):
         self.stats = stat_grid(self.content, resdir, nb_eval, self.dim)

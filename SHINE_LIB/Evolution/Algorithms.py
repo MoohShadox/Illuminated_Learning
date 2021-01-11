@@ -57,7 +57,6 @@ def checkStrategy(minstrategy):
 
 
 
-
 def Simple_NSGA(nn_class,selector_class, mu=100, lambda_=200, cxpb=0.3, mutpb=0.7, ngen=100, verbose=False, resdir="res",weights=(1.0,1.0), **kwargs):
     
     random.seed()
@@ -188,4 +187,4 @@ def Simple_NSGA(nn_class,selector_class, mu=100, lambda_=200, cxpb=0.3, mutpb=0.
     finfo.close()
     ffit.close()
 
-    return population, selector
+    return population, selector, valuemax

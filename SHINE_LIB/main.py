@@ -9,6 +9,9 @@ from deap import benchmarks
 from deap import creator
 from deap import tools
 
+
+random.seed(20)
+
 creator.create("MyFitness", base.Fitness, weights=(1.0,))
 creator.create("Individual", array.array, typecode="d", fitness=creator.MyFitness, strategy=None)
 creator.create("Strategy", array.array, typecode="d")
@@ -32,7 +35,7 @@ kw={
                     'dist_obj': 'final', 
                     'exit_reached': 'final', 
                     'robot_pos': 'final'},
-    'dim_grid': [100, 100],
+    'dim_grid': [20, 20],
     'grid_min_v': [0,0],
     'grid_max_v': [600,600],
     'goal': [60,60],
@@ -47,27 +50,40 @@ kw={
     'nov_k': 15, # k parameter of novelty search
     'nov_add_strategy': "random", # archive addition strategy (either 'random' or 'novel')
     'nov_lambda': 6, # number of individuals added to the archive
-    'selection' : "blablabla"
+    'selection' : "blablabla",
+    "alpha":7,
+    "beta":80,
 }
 
 
-def test_SHINE():
-    resdir="res/RUN_SHINE_"+"_"+datetime.datetime.now().strftime("%Y_%m_%d_%H:%M:%S")
+def test_SHINE(alpha,beta,ngen=200):
+    kw["alpha"] = alpha
+    kw["beta"] = beta
+    resdir="res/RUN_SHINE_"+str(kw["alpha"]) + "_" + str(kw["beta"]) +"_" +datetime.datetime.now().strftime("%Y_%m_%d_%H:%M:%S")
     os.mkdir(resdir)
-    pop,select = Simple_NSGA(Regression, Selector_SHINE, ngen=200, resdir=resdir, weights=(1.0,), **kw)
+    pop,select, max_val = Simple_NSGA(Regression, Selector_SHINE, ngen=ngen, resdir=resdir, weights=(1.0,), **kw)
+    return pop,select, max_val
 
 def test_NS():
-    resdir="res/RUN_SHINE_"+"_"+datetime.datetime.now().strftime("%Y_%m_%d_%H:%M:%S")
+    resdir="res/RUN_NS_"+"_"+datetime.datetime.now().strftime("%Y_%m_%d_%H:%M:%S")
     os.mkdir(resdir)
     pop,select = Simple_NSGA(Regression, Selector_SHINE, ngen=200, resdir=resdir, weights=(1.0,), **kw)
 
 def test_FIT():
-    resdir="res/RUN_SHINE_"+"_"+datetime.datetime.now().strftime("%Y_%m_%d_%H:%M:%S")
+    resdir="res/RUN_FIT"+"_"+datetime.datetime.now().strftime("%Y_%m_%d_%H:%M:%S")
     os.mkdir(resdir)
-    pop,select = Simple_NSGA(Regression, Selector_SHINE, ngen=200, resdir=resdir, weights=(1.0,), **kw)
+    pop,select = Simple_NSGA(Regression, Selector_FIT, ngen=200, resdir=resdir, weights=(1.0,), **kw)
 
+def test_MAPELITES():
+    resdir="res/RUN_MAPELITES"+"_"+datetime.datetime.now().strftime("%Y_%m_%d_%H:%M:%S")
+    os.mkdir(resdir)
+    pop,select = Simple_NSGA(Regression, Selector_MAPElites, ngen=200, resdir=resdir, weights=(1.0,), **kw)
 
 if (__name__ == "__main__"):
-    resdir="res/RUN_SHINE_"+"_"+datetime.datetime.now().strftime("%Y_%m_%d_%H:%M:%S")
-    os.mkdir(resdir)
-    pop,select = Simple_NSGA(Regression, Selector_SHINE, ngen=200, resdir=resdir, weights=(1.0,), **kw)
+    perf_dict = {}
+    for alpha in range(3,10):
+        for beta in range(10,100,5):
+            print("Experimentation for : ",alpha," and ", beta)
+            pop, select, max_val = test_SHINE(5,100,ngen=50)
+            perf_dict[(alpha,beta)] = max_val
+    print(perf_dict)
