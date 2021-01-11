@@ -1,0 +1,6 @@
+Simple_Genotype: 
+          nb_input: 
+          self.nn=SimpleNeuralControllerNumpy(self.spec["nb_input"],
+                                   self.spec["nb_output"],
+                                   self.spec["nb_layers"],
+                                   self.spec["nb_neurons_per_layer"])

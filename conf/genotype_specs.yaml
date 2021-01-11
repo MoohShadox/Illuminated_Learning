@@ -1,0 +1,5 @@
+Simple_Genotype:
+  nb_input: 5 # number of NN inputs
+  nb_output: 2 # number of NN outputs
+  nb_layers: 2 # number of layers
+  nb_neurons_per_layer: 10

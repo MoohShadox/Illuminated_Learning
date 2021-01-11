@@ -1,0 +1,4 @@
+{'nb_filled': 87, 'coverage': 0.0087, 'nb_eval': 20, 'max_score': -49.498971748470176, 'nb_cells': 10000, 'min_score': -696.9126606291501}
+{'nb_filled': 313, 'coverage': 0.0313, 'nb_eval': 100, 'max_score': -102.91337659322843, 'nb_cells': 10000, 'min_score': -550.4344925662713}
+{'nb_filled': 313, 'coverage': 0.0313, 'nb_eval': 100, 'max_score': -102.91337659322843, 'nb_cells': 10000, 'min_score': -550.4344925662713}
+{'nb_filled': 2450, 'min_score': -735.1690687661862, 'nb_eval': 100, 'coverage': 0.245, 'max_score': -95.07636716592968, 'nb_cells': 10000}
