@@ -68,7 +68,11 @@ class Grid():
         self.stats = {}
     
     def get_grid_coord(self, ind):
-        return ((self.x1 > ind.bd[0]).astype("int").argmax() - 1 ,(self.x2 > ind.bd[1]).astype("int").argmax() -1)
+        return ((self.x1 > ind.bd[0]).astype("int").argmax(),(self.x2 > ind.bd[1]).astype("int").argmax() )
+
+    def get_from_bd(self, bd):
+        return ((self.x1 > bd[0]).astype("int").argmax(),(self.x2 > bd[1]).astype("int").argmax() )
+
     
     def add(self,ind ):
         (x,y) = self.get_grid_coord(ind)
@@ -81,10 +85,11 @@ class Grid():
     
     def get_stats(self, resdir, nb_eval):
         self.stats = stat_grid(self.content, resdir, nb_eval, self.dim)
+        return self.stats
         
 
     def dump(self, resdir):
-        dump_grid(self.content, resdir, self.dims)
+        dump_grid(self.content, resdir, self.dim)
         pass
         
 

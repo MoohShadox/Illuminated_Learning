@@ -23,6 +23,10 @@ class Selector():
 
     def select(self, pq, mu):
         return tools.selNSGA2(pq,mu)
+    
+    def save_stats(self,resdir):
+        self.grid.dump(resdir)
+        self.grid.get_stats(resdir, 1000)
 
 
 class Selector_FITNS(Selector):
@@ -75,6 +79,33 @@ class Selector_SHINE(Selector):
 
     def compute_objectifs(self, population):
         for i in population:
+            n = self.archive.search(Behaviour_Descriptor(i))
+            if(len(n.val) > 0):
+                i.fitness.values = (self.archive.beta / (self.archive.beta*n.level + len(n.val) ),)
+            else:
+                i.fitness.values = (-np.inf,)
+        pass
+
+    def select(self, pq, mu):
+        return tools.selNSGA2(pq,mu)
+
+
+class Selector_SHINE_DISC(Selector):
+    
+    def __init__(self, **kwargs):
+        self.archive = Shine_Archive(100,100,alpha=kwargs["alpha"],beta=kwargs["beta"])
+        self.grid = Grid(kwargs["grid_min_v"],kwargs["grid_max_v"],kwargs["dim_grid"])
+
+    def update_with_offspring(self, offspring):
+        for ind in offspring:
+            self.grid.add(ind)
+            ind.bd = self.grid.get_grid_coord(ind)
+        self.archive.update_offspring(offspring)
+        pass
+
+    def compute_objectifs(self, population):
+        for i in population:
+            i.bd = self.grid.get_grid_coord(i)
             n = self.archive.search(Behaviour_Descriptor(i))
             if(len(n.val) > 0):
                 i.fitness.values = (self.archive.beta / (self.archive.beta*n.level + len(n.val) ),)

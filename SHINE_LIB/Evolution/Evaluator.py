@@ -31,6 +31,10 @@ class Behavior:
     def __init__(self, x, y):
         self.x = x
         self.y = y
+    
+
+    def __getitem__(self, i):
+        return self.x if i == 0 else self.y
 
     def distance_to(self, other):
         return np.sqrt((other.x - self.x)**2 + (other.y - self.y)**2)
