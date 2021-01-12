@@ -59,7 +59,7 @@ kw={
 def test_SHINE(alpha,beta,ngen=200):
     kw["alpha"] = alpha
     kw["beta"] = beta
-    resdir="res/RUN_SHINE_"+str(kw["alpha"]) + "_" + str(kw["beta"]) +"_" +datetime.datetime.now().strftime("%Y_%m_%d_%H:%M:%S")
+    resdir="res_5_10/RUN_SHINE_"+str(kw["alpha"]) + "_" + str(kw["beta"]) +"_" +datetime.datetime.now().strftime("%Y_%m_%d_%H:%M:%S")
     os.mkdir(resdir)
     pop,select, max_val = Simple_NSGA(Regression, Selector_SHINE, ngen=ngen, resdir=resdir, weights=(1.0,), **kw)
     select.save_stats(resdir)
@@ -93,11 +93,11 @@ def test_MAPELITES(dim_grid):
 
 def test_alpha_beta():
     perf_dict = {}
-    f = open("output_dict.txt","w")
-    for alpha in range(3,10,2):
-        for beta in range(10,100,20):
+    f = open("res_5_10/output_dict_2.txt","w")
+    for alpha in [9,7]:
+        for beta in [90,50,30,10]:
             st = []
-            for i in range(2):
+            for i in range(10):
                 print("Experimentation for : ",alpha," and ", beta)
                 print("=============")
                 pop, select, max_val = test_SHINE(alpha,beta,ngen=50)
@@ -106,6 +106,10 @@ def test_alpha_beta():
             f.write(str(alpha) + ", "+ str(beta) + " , " + " : " + str(st.mean()) + " , " + str(st.std()) + "\n" )
             perf_dict[(alpha,beta)] = (st.mean(), st.std())
     print(perf_dict)
+
+
+
+
 
 def test_grid_MAP():
     perf_dict = {}
@@ -124,5 +128,5 @@ def test_grid_MAP():
 
 if (__name__ == "__main__"):
     #test_SHINEDISCT(ngen=100)
-    test_grid_MAP()
-    #test_alpha_beta()
+    #test_grid_MAP()
+    test_alpha_beta()

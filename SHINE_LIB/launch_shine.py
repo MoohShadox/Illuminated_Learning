@@ -9,6 +9,9 @@ from deap import benchmarks
 from deap import creator
 from deap import tools
 
+import argparse
+
+
 
 random.seed(20)
 
@@ -121,8 +124,9 @@ def test_grid_MAP():
     print(perf_dict)
 
 
-
 if (__name__ == "__main__"):
-    #test_SHINEDISCT(ngen=100)
-    test_grid_MAP()
-    #test_alpha_beta()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("alpha",type=int, help="Max Depth")
+    parser.add_argument("beta",type=int,  help="Max Element in a Leaf")
+    args = parser.parse_args()
+    test_SHINE(args.alpha, args.beta)
