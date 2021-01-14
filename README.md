@@ -1,28 +1,25 @@
 # Illuminated_Learning
-Ce travail se base sur l'article de [Davy Smith, Laurissa Tokarchuk et Geraint Wiggins](http://www.eecs.qmul.ac.uk/~laurissa/Laurissas_Pages/Publications_files/SHINE%5B1%5D.pdf)
+This is based on the article of [Davy Smith, Laurissa Tokarchuk et Geraint Wiggins](http://www.eecs.qmul.ac.uk/~laurissa/Laurissas_Pages/Publications_files/SHINE%5B1%5D.pdf)
 ## Installation
-Cloner simplement le repo et installer les "requirements.txt" sur un environnement python 3.5 (a cause de MultiNeat).
-Cependant les expériences qui incluent MultiNeat sont minoritaires donc si elles ne vous intéressent pas particulièrement vous n'avez pas besoin de python 3.5 et de MultiNeat.
+Clone the repo and install the "requirements.txt" on a python 3.5 environment (because of MultiNeat). However, experiences that include MultiNeat are in the minority so if you are not particularly interested you don't need python 3.5 and MultiNeat.
 
-## Comment lancer une expérience
-Toutes les expériences que j'ai écrites sont préfixés par "RUN" et visent toutes a servir un propos dans mon rapport pour en lancer une il suffit de faire :
+## How to run an experiment 
+All the experiments we have written are prefixed by "RUN" and all aim to serve a purpose in my report. To launch one just do :
 ```bash 
 python -m scoop <NOM_EXP>
 ```
-L'expérience créera des lors un dossier dans le dossier "Expériences" ou elle mettra toutes les runs qu'elle effectuera dans un sous dossier dont le nom contiendra une chaine représentant les hyper-paramètres considérés (si il y'a lieu de le faire)
-Toutes les expériences effectuées au préalables ont été concervés.
+The experiment will then create a folder in the "Experience" folder where it will put all the runs it performs in a sub-folder whose name will contain a string representing the considered hyper-parameters (if any). All the experiments performed beforehand have been kept.
 
-## Comment utiliser le code 
+## How to use the code 
 
-### Classe Experience
-Pour écrire une expérience il suffit de créer une classe qui dérive de la classe "Expérience" et de créer dans le dossier conf un fichier de configuration associé.
-Ensuite dans cette classe il suffit d'implémenter la méthode "run" et la gestion des fichiers et la création des "resdir" se fera automatiquement avec les méthodes
-de la classe mère.
+### Class "Experience"
+
+To write an experiment, you just have to create a class that derives from the "Experience" class and to create in the conf folder an associated configuration file. Then in this class you just have to implement the "run" method  and the file management so the creation of the "resdir" will be done automatically with the methods of the parent class.
 
 ### Code Overview
 
 #### Genome
-Pour créer une nouvelle structure de réseau de neurone il suffit de dériver la classe Génôme et de le définir comme on le ferait sur pyTorch : 
+To create a new neural network structure, just derive the Genome class and define it as you would do on pyTorch :
 
 ```python
 class DNN(Genome):
@@ -49,8 +46,8 @@ class DNN(Genome):
         return x*self.max_action
 ```
 #### Selector
-Cette classe sert a modéliser le processus de calcul de fitness et de sélection des nouveaux individus, donc pour créer un processus de séléction il suffit de dériver
-la classe selector et implémenter deux méthodes comme suit :
+This class is used to model the process of fitness calculation and the selection of new individuals, so to create a selection process it is enough to derive the selector class and implement two methods as follows:
+
 ```python
 
 class Selector_SHINE_COL(Selector):
@@ -80,16 +77,16 @@ class Selector_SHINE_COL(Selector):
         return tools.selNSGA2(pq,mu)
 
 ```
-#### Algorithmes 
-Le fichier algorithm contient un algorithme NSGA2 prennant en paramètre la classe de genomes a instancier et la classe de sélecteur a utiliser.
+#### Algorithms 
+The algorithm file contains an NSGA2 algorithm taking in parameter the genome class and the selector class.
 
-## Travail effectué
-- Archive SHINE + Tests unitaires.
-- Implémentation des méthodes SHINE, MAP-ELITES, FIT, NOVELTY-SEARCH et certaines de leur variantes.
-- Etude de l'efficacité de la méthode SHINE suivant les variations des paramètres alpha et beta.
-- Etude de l'efficacité de la méthode MAP-Elites suivant les variations de la taille de la grille.
-- Implémentation et etude de deux variantes de la méthode SHINE proposée dans l'article basées sur des critères alternatifs et sur du multi-critère.
-- Implémentation et étude d'une variante de MAP-Elites basée les coordonnées polaires.
+## Work done 
+- SHINE Archive + Unit Tests.
+- Implementation of SHINE, MAP-ELITES, FIT, NOVELTY-SEARCH methods and some of their variants.
+- Study of the efficiency of the SHINE method according to the variations of the alpha and beta parameters.
+- Study of the efficiency of the MAP-Elites method according to the variations of the grid size.
+- Implementation and study of two variants of the SHINE method proposed in the article based on alternative criteria and multi-criteria.
+- Implementation and study of a variant of MAP-Elites based on polar coordinates.
 
 
 
