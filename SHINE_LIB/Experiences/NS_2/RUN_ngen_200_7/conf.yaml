@@ -1,0 +1,48 @@
+alpha: 7
+beta: 80
+dim_grid:
+- 100
+- 100
+env_params:
+  reward_kind: continuous
+  still_limit: 10
+episode_bd: robot_pos
+episode_bd_kind: final
+episode_bd_slice: !!python/tuple
+- 0
+- 2
+- null
+episode_log:
+  collision: cumul
+  dist_obj: final
+  exit_reached: final
+  robot_pos: final
+episode_nb_step: 1000
+episode_reward_kind: final
+goal:
+- 60
+- 60
+grid_max_v:
+- 600
+- 600
+grid_min_v:
+- 0
+- 0
+gym_name: FastsimSimpleNavigation-v0
+lambda: 200
+max_action: 2
+max_strategy: 3
+max_value: 30
+min_strategy: 0.5
+min_value: -30
+mu: 100
+nb_gen: 200
+nb_input: 5
+nb_layers: 2
+nb_neurons_per_layer: 10
+nb_output: 2
+nov_add_strategy: random
+nov_k: 15
+nov_lambda: 6
+selection: blablabla
+watch_max: dist_obj

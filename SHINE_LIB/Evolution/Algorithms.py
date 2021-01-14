@@ -54,6 +54,39 @@ import torch
 from .Evaluator import *
 
 
+params = NEAT.Parameters()
+params.PopulationSize = 100
+params.DynamicCompatibility = True
+params.AllowClones = False
+params.AllowLoops = False
+params.CompatTreshold = 5.0
+params.CompatTresholdModifier = 0.3
+params.YoungAgeTreshold = 15
+params.SpeciesMaxStagnation = 100
+params.OldAgeTreshold = 35
+params.MinSpecies = 3
+params.MaxSpecies = 10
+params.RouletteWheelSelection = True
+params.RecurrentProb = 0.0
+params.OverallMutationRate = 0.02
+params.MutateWeightsProb = 0.90
+params.WeightMutationMaxPower = 1.0
+params.WeightReplacementMaxPower = 5.0
+params.MutateWeightsSevereProb = 0.5
+params.WeightMutationRate = 0.75
+params.MaxWeight = 8
+params.MutateAddNeuronProb = 0.01
+params.MutateAddLinkProb = 0.02
+params.MutateRemLinkProb = 0.00
+
+params.Elitism = 0.1
+params.CrossoverRate = 0.5
+params.MutateWeightsSevereProb = 0.01
+
+params.MutateNeuronTraitsProb = 0
+params.MutateLinkTraitsProb = 0
+
+
 
 def generateES(icls, scls, size, imin, imax, smin, smax):
     ind = icls(random.uniform(imin, imax) for _ in range(size))
@@ -143,7 +176,6 @@ def Simple_NSGA(nn_class,selector_class, mu=100, lambda_=200, cxpb=0.3, mutpb=0.
     if paretofront is not None:
         paretofront.update(population)
     
-    #Améliorer ça 
 
     selector.update_with_offspring(population)
     selector.compute_objectifs(population)
@@ -301,7 +333,6 @@ def Neuro_Evolution_FIT(resdir,params,max_evaluations = 30000,**kw):
         sys.stdout.flush()
 
 
-ns_on = 1
 
 ns_K = 30
 ns_recompute_sparseness_each = 20
@@ -312,6 +343,8 @@ ns_no_archiving_stagnation_threshold = 150
 ns_Pmin_lowering_multiplier = 0.9
 ns_Pmin_raising_multiplier = 1.1
 ns_quick_archiving_min_evals = 8
+
+
 
 
 def Neuro_Evolution_NS(resdir,params,max_evaluations = 30000,**kw):
@@ -540,16 +573,24 @@ def Neuro_Evolution_FIT(resdir,params,max_evaluations = 30000,**kw):
         pb.update(i)
         sys.stdout.flush()
 
+class gen_bd():
+    def __init__(self,bd,obj,log):
+        self.bd = bd
+        self.obj = obj
+        self.log = log
 
-def Neuro_Evolution_MAPELITES(resdir,params,max_evaluations = 30000,**kw):
+
+
+def Neuro_Evolution(resdir,selector_class,max_evaluations = 30000,**kw):
     g = NEAT.Genome(0, 5, 2, 2, False,NEAT.ActivationFunction.TANH, NEAT.ActivationFunction.SIGNED_SIGMOID, 0, params, 0)
-    grid=Grid(kw["grid_min_v"],kw["grid_max_v"],kw["dim_grid"],comparator = lambda ind1, ind2 : ind1.fit > ind2.fit )
+    grid=Grid(kw["grid_min_v"],kw["grid_max_v"],kw["dim_grid"])
+
     rng = NEAT.RNG()
     rng.TimeSeed()
     pop = NEAT.Population(g, params, True, 1.0, rnd.randint(0, 1000))
 
-    print('NumLinks:', g.NumLinks())
-    #sys.exit(0)
+    S = selector_class(**kw)
+
     fbd=open(resdir+"/bd.log","w")
     finfo=open(resdir+"/info.log","w")
     ffit=open(resdir+"/fit.log","w")
@@ -569,19 +610,22 @@ def Neuro_Evolution_MAPELITES(resdir,params,max_evaluations = 30000,**kw):
     finfo.flush()
     ffit.write("## Generation 0 \n")
     ffit.flush()
+    pop_bd = []
     for _, genome in enumerate(NEAT.GetGenomeList(pop)):
         fit,bd,log = Neuro_Evolve_Evaluation(genome,resdir=resdir, **kw)
         print('Evaluating',_, " : ",fit)
 
-
         k1,k2 = grid.get_from_bd(bd)
-        #grid.content[(k1,k2)] = genome
-        genome.bd = bd
+        genome.bd = (bd[0], bd[1])
         genome.fit = fit
         genome.log = log
-        genome.SetFitness(fit)
-        genome.SetEvaluated()
-        grid.add(genome)
+
+        g = gen_bd( (bd[0], bd[1]), genome, log)
+        pop_bd.append(g)
+
+        S.update(g)
+        S.compute_objectif(g)
+
 
         fbd.write(str(bd[0])+" "+str(bd[1])+"\n")
         fbd.flush()
@@ -597,17 +641,16 @@ def Neuro_Evolution_MAPELITES(resdir,params,max_evaluations = 30000,**kw):
 
 
     maxf = max([x.GetFitness() for x in NEAT.GetGenomeList(pop)])
-    pb = pbar.ProgressBar(maxval=max_evaluations)
-    pb.start()
 
     for i in range(max_evaluations):
 
         fitness_list = [x.GetFitness() for x in NEAT.GetGenomeList(pop)]
         best = max(fitness_list)
-        #print("Fitness list : ", fitness_list)
-        #print("Max  : ", best)
+
         evhist.append(best)
-        
+        print(".",end="")
+        if(i%100 == 0):
+            print("+",end="")
         if best > best_ever:
             sys.stdout.flush()
             print()
@@ -624,7 +667,17 @@ def Neuro_Evolution_MAPELITES(resdir,params,max_evaluations = 30000,**kw):
         baby = pop.Tick(old)
         # evaluate it
         f,bd,log = Neuro_Evolve_Evaluation(baby,resdir=resdir,**kw)
+        baby.fit = f
+        baby.bd = (bd[0], bd[1])
+        baby.log = log
 
+
+        g = gen_bd( (bd[0], bd[1]), baby, log)
+        pop_bd.append(g)
+
+        S.update(g)
+        S.compute_objectif(g)
+        S.update_all(pop_bd)
         finfo.write("## Generation %d \n"%(i))
         finfo.flush()
         ffit.write("## Generation %d \n"%(i))
@@ -636,20 +689,5 @@ def Neuro_Evolution_MAPELITES(resdir,params,max_evaluations = 30000,**kw):
         finfo.flush()
         ffit.write(str(f)+"\n")
         ffit.flush()
-
-
-        baby.SetFitness(f)
-        baby.SetEvaluated()
-
-        k1,k2 = grid.get_from_bd(bd)
-        grid.content[(k1,k2)] = baby
-        baby.behavior = bd
-        baby.SetFitness(fit)
-        baby.SetEvaluated()
-
-        pop = grid.content.values()
-        pop = NEAT.Population(pop)
-
-        fitness_list = [x.GetFitness() for x in NEAT.GetGenomeList(pop)]
-        pb.update(i)
         sys.stdout.flush()
+    return pop, select, best_ever

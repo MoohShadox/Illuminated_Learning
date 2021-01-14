@@ -1,0 +1,12 @@
+Started experience  SHINE_PARETO  in  file :  Experiences/SHINE_PARETO_9
+seeking for  conf/SHINE_PARETO.yaml
+reader conf file :  {'max_action': 2, 'nov_lambda': 6, 'env_params': {'still_limit': 10, 'reward_kind': 'continuous'}, 'alpha': 7, 'watch_max': 'dist_obj', 'nb_gen': 25, 'episode_bd_slice': (0, 2, None), 'grid_max_v': [600, 600], 'gym_name': 'FastsimSimpleNavigation-v0', 'nb_output': 2, 'episode_bd': 'robot_pos', 'episode_nb_step': 1000, 'min_value': -30, 'episode_log': {'collision': 'cumul', 'robot_pos': 'final', 'dist_obj': 'final', 'exit_reached': 'final'}, 'beta': 30, 'lambda': 200, 'nb_layers': 2, 'nov_k': 15, 'max_value': 30, 'min_strategy': 0.5, 'mu': 100, 'selection': 'blablabla', 'nb_neurons_per_layer': 10, 'goal': [60, 60], 'grid_min_v': [0, 0], 'episode_reward_kind': 'final', 'episode_bd_kind': 'final', 'max_strategy': 3, 'dim_grid': [100, 100], 'nov_add_strategy': 'random', 'nb_input': 5}
+Experimentation for :  7  and  30
+=============
+Created resdir :  Experiences/SHINE_PARETO_9/RUN_beta_30_alpha_7_1
+.Gen 1, new max ! max fit=-233.32973517931637 index=201 BD=[17.146780014038086, 289.36077880859375]
+....Gen 5, new max ! max fit=-207.11810381709537 index=191 BD=[18.931560516357422, 263.0056457519531]
+....+.........+.........+.....Gen 35, new max ! max fit=-206.35397012654298 index=173 BD=[19.027446746826172, 262.24542236328125]
+....+.........+.........+.........+......Gen 76, new max ! max fit=-167.81695494830197 index=246 BD=[63.3026123046875, 227.78445434570312]
+...+.........+.........+.........+.........+.........+.Gen 131, new max ! max fit=-157.5255877543747 index=138 BD=[59.750789642333984, 217.525390625]
+........+.........+....

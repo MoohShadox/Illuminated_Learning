@@ -12,7 +12,7 @@ class Behaviour_Descriptor(object):
         return self.ind.bd[i]
 
     def __eq__(self, other):
-        return self.ind[0] == other.ind[0] and self.ind[1] == other.ind[1]
+        return self.ind.bd[0] == other.ind.bd[0] and self.ind.bd[1] == other.ind.bd[1]
 
         
     def __repr__(self):

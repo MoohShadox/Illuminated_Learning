@@ -1,0 +1,217 @@
+[2021-01-14 07:04:24,770] launcher  INFO    SCOOP 0.7 1.1 on linux using Python 3.5.5 | packaged by conda-forge | (default, Jul 23 2018, 23:45:43) [GCC 4.8.2 20140120 (Red Hat 4.8.2-15)], API: 1013
+[2021-01-14 07:04:24,770] launcher  INFO    Deploying 8 worker(s) over 1 host(s).
+[2021-01-14 07:04:24,770] launcher  INFO    Worker distribution: 
+[2021-01-14 07:04:24,770] launcher  INFO       127.0.0.1:	7 + origin
+Started experience  MAPElites_POL  in  file :  Experiences/MAPElites_POL_1
+seeking for  conf/MAPElites_POL.yaml
+reader conf file :  {'grid_min_v': [0, 0], 'min_strategy': 0.5, 'grid_max_v': [600, 600], 'episode_bd': 'robot_pos', 'nov_k': 15, 'episode_bd_slice': (0, 2, None), 'lambda': 200, 'beta': 80, 'nb_gen': 25, 'selection': 'blablabla', 'nov_add_strategy': 'random', 'alpha': 7, 'env_params': {'reward_kind': 'continuous', 'still_limit': 10}, 'mu': 100, 'nb_input': 5, 'episode_bd_kind': 'final', 'episode_reward_kind': 'final', 'episode_nb_step': 1000, 'nb_layers': 2, 'goal': [60, 60], 'max_strategy': 3, 'episode_log': {'collision': 'cumul', 'robot_pos': 'final', 'exit_reached': 'final', 'dist_obj': 'final'}, 'max_value': 30, 'watch_max': 'dist_obj', 'nb_neurons_per_layer': 10, 'min_value': -30, 'nov_lambda': 6, 'gym_name': 'FastsimSimpleNavigation-v0', 'max_action': 2, 'dim_grid': [100, 100], 'nb_output': 2}
+=========================
+Created resdir :  Experiences/MAPElites_POL_1/RUN_1
+.Gen 1, new max ! max fit=-236.33039634090972 index=173 BD=[18.002700805664062, 292.5688781738281]
+..Gen 3, new max ! max fit=-210.66209421186704 index=135 BD=[16.52519416809082, 266.1272888183594]
+..Gen 5, new max ! max fit=-202.6332474642233 index=130 BD=[157.42388916015625, 237.67616271972656]
+..Gen 7, new max ! max fit=-191.6447401214791 index=212 BD=[156.48304748535156, 225.5860137939453]
+..+.........+........Gen 28, new max ! max fit=-107.6597824952579 index=156 BD=[16.930618286132812, 158.66943359375]
+.+.......Gen 37, new max ! max fit=-104.95029100955469 index=198 BD=[17.037670135498047, 155.7538604736328]
+.Gen 38, new max ! max fit=-104.94887829851605 index=148 BD=[17.039386749267578, 155.75308227539062]
+.+Gen 40, new max ! max fit=-104.81386849095196 index=289 BD=[16.89840316772461, 155.54161071777344]
+.........+...Gen 53, new max ! max fit=-101.44105094307837 index=118 BD=[24.426725387573242, 154.9990997314453]
+......+.........+........Gen 78, new max ! max fit=-101.42156175805312 index=164 BD=[24.451826095581055, 154.98768615722656]
+.+.........+.........Gen 99, new max ! max fit=-97.17571362076505 index=132 BD=[37.7242317199707, 154.58810424804688]
++Gen 100, new max ! max fit=-97.1753133227893 index=129 BD=[37.725006103515625, 154.58787536621094]
+Coverage: 1.24 % (124 cells out of 10000) Max score: -97.18 Min score: -714.25 Total quality: -50810.87
+=========================
+=========================
+Created resdir :  Experiences/MAPElites_POL_1/RUN_2
+........Gen 8, new max ! max fit=-214.3806775366039 index=152 BD=[17.592578887939453, 270.1444396972656]
+.Gen 9, new max ! max fit=-205.73378838387444 index=170 BD=[16.664119720458984, 261.11785888671875]
++.Gen 11, new max ! max fit=-43.682099333480366 index=168 BD=[16.625240325927734, 65.17262268066406]
+.....Gen 16, new max ! max fit=-40.25243471076965 index=117 BD=[19.759544372558594, 59.01804733276367]
+...+.........+.........+...Gen 43, new max ! max fit=-20.330093639134276 index=173 BD=[78.22434997558594, 69.01031494140625]
+...Gen 46, new max ! max fit=-10.011657127892542 index=104 BD=[64.8733901977539, 68.74547576904297]
+...+.Gen 51, new max ! max fit=-10.008217316954381 index=225 BD=[64.8731689453125, 68.74166107177734]
+........Gen 59, new max ! max fit=-4.504985100829733 index=161 BD=[64.06816864013672, 61.93517303466797]
+Target REACHED ! 
++.........+.........+.....Gen 85, new max ! max fit=-3.232877945238965 index=183 BD=[57.54344177246094, 62.10162353515625]
+Target REACHED ! 
+.Gen 86, new max ! max fit=-2.851990852494629 index=118 BD=[62.61439514160156, 61.139644622802734]
+Target REACHED ! 
+..Gen 88, new max ! max fit=-2.8271968040730946 index=148 BD=[62.59668731689453, 61.11814880371094]
+Target REACHED ! 
+.+.......Target REACHED ! 
+Target REACHED ! 
+..Target REACHED ! 
++Coverage: 3.65 % (365 cells out of 10000) Max score: -2.85 Min score: -732.42 Total quality: -87500.89
+=========================
+=========================
+Created resdir :  Experiences/MAPElites_POL_1/RUN_3
+.Gen 1, new max ! max fit=-212.2844668409116 index=219 BD=[16.669662475585938, 267.81524658203125]
+..Gen 3, new max ! max fit=-208.3321178067652 index=63 BD=[21.368345260620117, 264.718994140625]
+.Gen 4, new max ! max fit=-204.26640727343008 index=189 BD=[19.269886016845703, 260.16448974609375]
+.....+......Gen 16, new max ! max fit=-198.4051976382552 index=209 BD=[191.185302734375, 208.84568786621094]
+.Gen 17, new max ! max fit=-193.40849603649795 index=122 BD=[191.3253173828125, 201.98770141601562]
+.Gen 18, new max ! max fit=-190.00257529917263 index=179 BD=[191.04327392578125, 197.58139038085938]
+.Gen 19, new max ! max fit=-96.93911848188182 index=133 BD=[40.7771110534668, 155.01406860351562]
++........Gen 28, new max ! max fit=-39.87738907562576 index=287 BD=[20.271907806396484, 56.55255889892578]
+.+.........Gen 39, new max ! max fit=-37.87944226593818 index=158 BD=[32.29115295410156, 34.172264099121094]
++..Gen 42, new max ! max fit=-34.52913619037976 index=217 BD=[33.96996307373047, 37.31303405761719]
+.......+.........+.......Gen 67, new max ! max fit=-27.873744358867064 index=107 BD=[40.015663146972656, 40.568790435791016]
+..+.........+.....Gen 85, new max ! max fit=-26.178903386088223 index=217 BD=[40.68585205078125, 42.328025817871094]
+..Gen 87, new max ! max fit=-16.758586319990975 index=185 BD=[47.76363754272461, 48.549163818359375]
+..+.....Gen 95, new max ! max fit=-12.516608543978075 index=127 BD=[51.095314025878906, 51.203861236572266]
+....+Coverage: 2.78 % (278 cells out of 10000) Max score: -12.52 Min score: -724.76 Total quality: -75131.61
+=========================
+=========================
+Created resdir :  Experiences/MAPElites_POL_1/RUN_4
+..Gen 2, new max ! max fit=-214.37101395690812 index=140 BD=[24.962142944335938, 271.4882507324219]
+.Gen 3, new max ! max fit=-205.03936349424842 index=149 BD=[17.43882179260254, 260.5733947753906]
+..Gen 5, new max ! max fit=-204.45731534315755 index=119 BD=[18.95041847229004, 260.2940979003906]
+...Gen 8, new max ! max fit=-96.39951572155216 index=193 BD=[43.3603515625, 154.9525604248047]
+.+.........Gen 19, new max ! max fit=-95.13370151068123 index=228 BD=[56.35765838623047, 155.06394958496094]
++....Gen 24, new max ! max fit=-95.03246293310569 index=112 BD=[56.07528305053711, 154.95138549804688]
+.....+.Gen 31, new max ! max fit=-94.76980657409227 index=230 BD=[57.63328552246094, 154.74024963378906]
+........Gen 39, new max ! max fit=-94.56534871557349 index=250 BD=[56.83881378173828, 154.5124969482422]
++.........+.........+......Gen 66, new max ! max fit=-94.5650324221473 index=118 BD=[56.849205017089844, 154.5125274658203]
+...+.........+.........+.........+Coverage: 1.43 % (143 cells out of 10000) Max score: -95.35 Min score: -656.90 Total quality: -48658.06
+=========================
+=========================
+Created resdir :  Experiences/MAPElites_POL_1/RUN_5
+.Gen 1, new max ! max fit=-296.0406669889035 index=201 BD=[16.675617218017578, 352.85333251953125]
+.Gen 2, new max ! max fit=-250.2097053844477 index=24 BD=[53.8691520690918, 310.13458251953125]
+.Gen 3, new max ! max fit=-110.04814930605336 index=181 BD=[17.85407066345215, 161.6578369140625]
+.....Gen 8, new max ! max fit=-104.03397344281903 index=170 BD=[18.44816780090332, 155.37564086914062]
+.+.........+.........+.........Gen 39, new max ! max fit=-66.1287445026931 index=159 BD=[18.410423278808594, 111.4132080078125]
++.Gen 41, new max ! max fit=-64.1258376984051 index=220 BD=[17.790069580078125, 108.2746810913086]
+...Gen 44, new max ! max fit=-63.28978894080619 index=91 BD=[17.844070434570312, 107.20672607421875]
+....Gen 48, new max ! max fit=-62.95839168977675 index=92 BD=[17.650245666503906, 106.58602142333984]
+.+....Gen 54, new max ! max fit=-40.34219201544564 index=278 BD=[62.26040267944336, 19.72118377685547]
+.....+....Gen 64, new max ! max fit=-27.670729067672024 index=294 BD=[87.28533935546875, 55.39788055419922]
+.....+.....Gen 75, new max ! max fit=-23.653014264228215 index=243 BD=[83.49787902832031, 57.29541778564453]
+.Gen 76, new max ! max fit=-19.577329670140568 index=243 BD=[79.34600830078125, 56.999366760253906]
+...+.........+.........+Coverage: 1.57 % (157 cells out of 10000) Max score: -19.58 Min score: -725.94 Total quality: -56770.77
+=========================
+=========================
+Created resdir :  Experiences/MAPElites_POL_1/RUN_6
+...Gen 3, new max ! max fit=-226.6763011227081 index=110 BD=[17.64436912536621, 282.6839599609375]
+.Gen 4, new max ! max fit=-223.24794301381093 index=167 BD=[16.643413543701172, 278.99737548828125]
+..Gen 6, new max ! max fit=-220.2424189099531 index=107 BD=[29.21402931213379, 278.08013916015625]
+..Gen 8, new max ! max fit=-210.63625860997766 index=110 BD=[17.438880920410156, 266.29150390625]
+.+....Gen 14, new max ! max fit=-204.81375163346223 index=123 BD=[18.338035583496094, 260.53167724609375]
+....Gen 18, new max ! max fit=-204.18387498522722 index=208 BD=[18.308021545410156, 259.8820495605469]
+.+....Gen 24, new max ! max fit=-204.17968373750935 index=81 BD=[17.17335319519043, 259.6377258300781]
+.Gen 25, new max ! max fit=-204.16795294928062 index=195 BD=[17.404470443725586, 259.6751708984375]
+..Gen 27, new max ! max fit=-195.8619996168255 index=111 BD=[136.10052490234375, 240.47335815429688]
+..+..Gen 32, new max ! max fit=-104.3476662118802 index=56 BD=[16.566364288330078, 154.87863159179688]
+....Gen 36, new max ! max fit=-101.570180466041 index=63 BD=[19.26221466064453, 153.0426483154297]
+...+.Gen 41, new max ! max fit=-100.95172334894956 index=160 BD=[21.130172729492188, 153.16859436035156]
+.......Gen 48, new max ! max fit=-100.87339640762359 index=100 BD=[20.295520782470703, 152.73077392578125]
+.+......Gen 56, new max ! max fit=-49.03436326765433 index=242 BD=[17.25511932373047, 84.0259017944336]
+...+...Gen 63, new max ! max fit=-46.04303725092775 index=127 BD=[17.70361328125, 78.1927719116211]
+.Gen 64, new max ! max fit=-40.3246581469298 index=107 BD=[19.974227905273438, 64.90057373046875]
+.....+.........+.........+.........+Coverage: 1.80 % (180 cells out of 10000) Max score: -40.32 Min score: -731.62 Total quality: -58276.93
+=========================
+=========================
+Created resdir :  Experiences/MAPElites_POL_1/RUN_7
+......Gen 6, new max ! max fit=-220.3771442486446 index=123 BD=[31.35443687438965, 278.5074768066406]
+...Gen 9, new max ! max fit=-206.80894393605843 index=59 BD=[17.546157836914062, 262.4045715332031]
++.........+.........+.........+.........+.........+..Gen 62, new max ! max fit=-143.34731451089914 index=130 BD=[156.7044677734375, 165.814453125]
+.......+.Gen 71, new max ! max fit=-106.30364867510836 index=112 BD=[18.747913360595703, 157.97311401367188]
+.Gen 72, new max ! max fit=-106.30289371210996 index=219 BD=[18.748699188232422, 157.97262573242188]
+...Gen 75, new max ! max fit=-101.8854127161687 index=218 BD=[19.553363800048828, 153.5131378173828]
+...Gen 78, new max ! max fit=-99.51609487257579 index=267 BD=[24.380502700805664, 152.92311096191406]
+.+.........Gen 89, new max ! max fit=-99.23094405040663 index=260 BD=[22.094161987304688, 151.70565795898438]
++Gen 90, new max ! max fit=-97.07051623860592 index=253 BD=[43.846031188964844, 155.71694946289062]
+.........+Coverage: 1.39 % (139 cells out of 10000) Max score: -97.07 Min score: -720.28 Total quality: -49632.82
+=========================
+=========================
+Created resdir :  Experiences/MAPElites_POL_1/RUN_8
+.Gen 1, new max ! max fit=-258.021298178818 index=105 BD=[61.927425384521484, 318.01409912109375]
+..Gen 3, new max ! max fit=-255.76215988801172 index=150 BD=[59.42127227783203, 315.7615051269531]
+.Gen 4, new max ! max fit=-209.8848857481281 index=221 BD=[21.312278747558594, 266.2884521484375]
+...Gen 7, new max ! max fit=-206.35397012654298 index=51 BD=[19.027446746826172, 262.24542236328125]
+..+....Gen 14, new max ! max fit=-143.93598738254008 index=56 BD=[156.0480194091797, 167.20236206054688]
+.Gen 15, new max ! max fit=-142.26662953024888 index=147 BD=[154.40902709960938, 166.42710876464844]
+..Gen 17, new max ! max fit=-125.58642011081787 index=191 BD=[135.14852905273438, 160.62130737304688]
+..+.Gen 21, new max ! max fit=-104.96147616848677 index=183 BD=[86.79015350341797, 161.48497009277344]
+.Gen 22, new max ! max fit=-101.86765904387111 index=202 BD=[17.79726219177246, 152.71434020996094]
+.Gen 23, new max ! max fit=-101.01473395177555 index=93 BD=[18.861663818359375, 152.25840759277344]
+....Gen 27, new max ! max fit=-100.74994723215046 index=95 BD=[18.030635833740234, 151.5921630859375]
+..+Gen 30, new max ! max fit=-100.30923912135988 index=127 BD=[22.19623565673828, 152.9129638671875]
+.........+........Gen 48, new max ! max fit=-98.3104298466545 index=222 BD=[34.23895263671875, 154.87522888183594]
+.+.........+.........+Gen 70, new max ! max fit=-97.47081309260678 index=204 BD=[43.49962615966797, 156.06402587890625]
+.........+Gen 80, new max ! max fit=-96.23913127609345 index=108 BD=[64.79817962646484, 156.11944580078125]
+.........+Gen 90, new max ! max fit=-96.13683835417615 index=238 BD=[61.44001770019531, 156.1260528564453]
+.........+Coverage: 1.09 % (109 cells out of 10000) Max score: -96.14 Min score: -726.77 Total quality: -37628.44
+=========================
+=========================
+Created resdir :  Experiences/MAPElites_POL_1/RUN_9
+..Gen 2, new max ! max fit=-207.04121550320565 index=85 BD=[17.485095977783203, 262.62908935546875]
+.......+.........Gen 19, new max ! max fit=-64.8284498061424 index=184 BD=[24.033029556274414, 113.93611907958984]
++Gen 20, new max ! max fit=-42.696985514972496 index=159 BD=[17.58147430419922, 64.86839294433594]
+.........+....Gen 34, new max ! max fit=-40.854842492579216 index=268 BD=[19.866416931152344, 67.64288330078125]
+.Gen 35, new max ! max fit=-40.854516643711555 index=121 BD=[19.866790771484375, 67.64310455322266]
+..Gen 37, new max ! max fit=-40.685461016023105 index=244 BD=[20.013168334960938, 67.50733184814453]
+..+........Gen 48, new max ! max fit=-23.972951429211314 index=151 BD=[63.19088363647461, 83.7596435546875]
+.+Gen 50, new max ! max fit=-23.97256990937583 index=162 BD=[63.19097137451172, 83.75924682617188]
+.........+..Gen 62, new max ! max fit=-23.97175540944456 index=175 BD=[63.19110107421875, 83.75840759277344]
+.....Gen 67, new max ! max fit=-19.59034005744847 index=299 BD=[42.30603790283203, 51.591365814208984]
+..+....Gen 74, new max ! max fit=-18.867754336901637 index=121 BD=[60.26081848144531, 78.86595153808594]
+.....+Gen 80, new max ! max fit=-18.827448774997848 index=215 BD=[60.25331115722656, 78.82574462890625]
+......Gen 86, new max ! max fit=-18.00933921382173 index=255 BD=[46.41892623901367, 48.17245864868164]
+...+Gen 90, new max ! max fit=-15.567423291104022 index=166 BD=[45.53561782836914, 65.75554656982422]
+.........+Coverage: 2.80 % (280 cells out of 10000) Max score: -15.57 Min score: -729.87 Total quality: -64414.27
+=========================
+=========================
+Created resdir :  Experiences/MAPElites_POL_1/RUN_10
+..Gen 2, new max ! max fit=-221.0349178515234 index=127 BD=[31.282426834106445, 279.16143798828125]
+.Gen 3, new max ! max fit=-214.80042978655334 index=42 BD=[17.835430145263672, 270.62139892578125]
+.....Gen 8, new max ! max fit=-210.61753731624245 index=84 BD=[17.771894454956055, 266.3408203125]
+.Gen 9, new max ! max fit=-209.74796391304082 index=147 BD=[21.545860290527344, 266.1928405761719]
++Gen 10, new max ! max fit=-128.66708470470113 index=226 BD=[135.83143615722656, 163.94619750976562]
+.Gen 11, new max ! max fit=-128.53541848505967 index=61 BD=[135.65725708007812, 163.91021728515625]
+..Gen 13, new max ! max fit=-99.53981254016122 index=107 BD=[32.14897537231445, 155.5640869140625]
+.....Gen 18, new max ! max fit=-97.36604132211855 index=242 BD=[38.75764846801758, 155.02056884765625]
+.Gen 19, new max ! max fit=-97.01968311381094 index=262 BD=[40.07823944091797, 154.9523162841797]
++..Gen 22, new max ! max fit=-96.87930900071274 index=236 BD=[63.2896614074707, 156.8234405517578]
+....Gen 26, new max ! max fit=-96.04543891215046 index=127 BD=[43.46571731567383, 154.61154174804688]
+..Gen 28, new max ! max fit=-95.18618028960113 index=108 BD=[65.1974868774414, 155.04417419433594]
+.+.........+.........+.Gen 51, new max ! max fit=-95.17560072625547 index=243 BD=[54.922584533691406, 155.04006958007812]
+........+.........+.........+.........+......Gen 96, new max ! max fit=-95.16879163544816 index=132 BD=[51.7798957824707, 154.81312561035156]
+...+Coverage: 1.33 % (133 cells out of 10000) Max score: -95.35 Min score: -732.00 Total quality: -43351.61
+=========================
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+Target REACHED ! 
+[2021-01-14 09:00:59,866] launcher  (127.0.0.1:45477) INFO    Root process is done.
+[2021-01-14 09:00:59,874] launcher  (127.0.0.1:45477) INFO    Finished cleaning spawned subprocesses.

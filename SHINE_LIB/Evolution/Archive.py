@@ -42,8 +42,23 @@ from scoop import futures
 #from novelty_search_vanila import *
 import os
 
+def is_pareto_efficient_simple(costs):
+    """
+    Find the pareto-efficient points
+    :param costs: An (n_points, n_costs) array
+    :return: A (n_points, ) boolean array, indicating whether each point is Pareto efficient
+    """
+    is_efficient = np.ones(costs.shape[0], dtype = bool)
+    for i, c in enumerate(costs):
+        if is_efficient[i]:
+            is_efficient[is_efficient] = np.any(costs[is_efficient]<c, axis=1)  # Keep any point with a lower cost
+            is_efficient[i] = True  # And keep self
+    return is_efficient
+
+
 
 class Novelty_Archive():
+    
     def __init__(self, k=15, lambda_=10, **kwargs):
         self.all_bd={}
         self.kdtree=None
@@ -162,6 +177,7 @@ class Shine_Archive(QuadTree):
         node = self.search(val)
         if(val not in node.val):
             node.val.append(val)
+
         if(len(node.val) >= self.beta):
             if(node.level <= self.alpha):
                 self._split(node)
@@ -172,3 +188,187 @@ class Shine_Archive(QuadTree):
         if(len(node.val) > self.beta):
             print("size after : ",len(node.val), " , level : ",node.level)
 
+
+
+
+
+class Shine_Archive_FIT(QuadTree):
+    def __init__(self, width, height, alpha = 7, beta = 10):
+        super().__init__([],width, height)
+        rect = Rect(0, 0, width, height)
+        self.alpha = alpha
+        self.beta = beta
+        self.size = 0
+        self.root = Node(val=[], bounds=rect)
+
+    
+    def update_offspring(self,offspring):
+        for i in offspring:
+            I = Behaviour_Descriptor(i)
+            self.add_node(I)
+        
+
+    def _split(self, root):
+        if root.leaf:
+            rects = root.bounds.split()
+            for son, bounds_rect in zip(("nw", "ne", "sw", "se"), rects):
+                setattr(root, son, Node(val=[], bounds=bounds_rect, level=root.level + 1))
+            for val in root.val:
+                for son in root.sons():
+                    if val in root.bounds:
+                        son.val.append(val)
+                        if(len(son.val) > self.beta):
+                            self._split(son)
+                        break
+            root.val.clear()
+        else:
+            print("Trying to split not a leaf")
+    
+    def remove_worst(self, node):
+        if(len(node.val) == 0):
+            return
+        points = [(i[0], i[1]) for i in node.val]
+        dists = [ (i,i.ind.fit) for i in node.val]
+        dists = (sorted(dists, key = lambda x:x[1], reverse=True))
+        pos = node.val.index(dists[0][0])
+        node.val.remove(dists[0][0])
+        #print("points after : ",node.val)
+        pass
+
+
+    def add_node(self, val):
+        node = self.search(val)
+        if(val not in node.val):
+            node.val.append(val)
+        if(len(node.val) >= self.beta):
+            if(node.level <= self.alpha):
+                self._split(node)
+                self.size += 1
+            else:
+                self.remove_worst(node)
+        
+        if(len(node.val) > self.beta):
+            print("size after : ",len(node.val), " , level : ",node.level)
+
+
+
+class Shine_Archive_COL(QuadTree):
+    def __init__(self, width, height, alpha = 7, beta = 10):
+        super().__init__([],width, height)
+        rect = Rect(0, 0, width, height)
+        self.alpha = alpha
+        self.beta = beta
+        self.size = 0
+        self.root = Node(val=[], bounds=rect)
+
+    
+    def update_offspring(self,offspring):
+        for i in offspring:
+            I = Behaviour_Descriptor(i)
+            self.add_node(I)
+        
+
+    def _split(self, root):
+        if root.leaf:
+            rects = root.bounds.split()
+            for son, bounds_rect in zip(("nw", "ne", "sw", "se"), rects):
+                setattr(root, son, Node(val=[], bounds=bounds_rect, level=root.level + 1))
+            for val in root.val:
+                for son in root.sons():
+                    if val in root.bounds:
+                        son.val.append(val)
+                        if(len(son.val) > self.beta):
+                            self._split(son)
+                        break
+            root.val.clear()
+        else:
+            print("Trying to split not a leaf")
+    
+    def remove_worst(self, node):
+        if(len(node.val) == 0):
+            return
+        points = [(i[0], i[1]) for i in node.val]
+        #dists = [ (i,np.sqrt((i[0] - (node.bounds[0] + node.bounds[2]))**2 +  (i[1] - (node.bounds[1] + node.bounds[3])) **2 )) for i in node.val]
+        dists = [ (i,i.ind.log["collision"]) for i in node.val]
+        #print("points : ", points)
+        #print(dists)
+        dists = (sorted(dists, key = lambda x:x[1], reverse=True))
+        node.val.remove(dists[0][0])
+        #print("points after : ",node.val)
+        pass
+
+
+    def add_node(self, val):
+        node = self.search(val)
+        if(val not in node.val):
+            node.val.append(val)
+        if(len(node.val) >= self.beta):
+            if(node.level <= self.alpha):
+                self._split(node)
+                self.size += 1
+            else:
+                self.remove_worst(node)
+        
+        if(len(node.val) > self.beta):
+            print("size after : ",len(node.val), " , level : ",node.level)
+
+
+class Shine_Archive_PARETO(QuadTree):
+    def __init__(self, width, height, alpha = 7, beta = 10):
+        super().__init__([],width, height)
+        rect = Rect(0, 0, width, height)
+        self.alpha = alpha
+        self.beta = beta
+        self.size = 0
+        self.root = Node(val=[], bounds=rect)
+
+    
+    def update_offspring(self,offspring):
+        for i in offspring:
+            I = Behaviour_Descriptor(i)
+            self.add_node(I)
+        
+
+    def _split(self, root):
+        if root.leaf:
+            rects = root.bounds.split()
+            for son, bounds_rect in zip(("nw", "ne", "sw", "se"), rects):
+                setattr(root, son, Node(val=[], bounds=bounds_rect, level=root.level + 1))
+            for val in root.val:
+                for son in root.sons():
+                    if val in root.bounds:
+                        son.val.append(val)
+                        if(len(son.val) > self.beta):
+                            self._split(son)
+                        break
+            root.val.clear()
+        else:
+            print("Trying to split not a leaf")
+    
+    def remove_worst(self, node):
+        if(len(node.val) == 0):
+            return
+        points = [(i[0], i[1]) for i in node.val]
+        costs = np.array([ [-i.ind.fit,i.ind.log["collision"]] for i in node.val])
+        msq = is_pareto_efficient_simple(costs)
+        for i,m in enumerate(msq):
+            if(not m):
+                node.val.remove(node.val[i])
+        costs = np.array([ [-i.ind.fit,i.ind.log["collision"]] for i in node.val])
+        pass
+
+
+    def add_node(self, val):
+
+        node = self.search(val)
+
+        if(val not in node.val):
+            node.val.append(val)
+
+        if(node.level <= self.alpha):
+                self._split(node)
+                self.size += 1
+        self.remove_worst(node)
+        
+        if(len(node.val) > self.beta):
+            print("size after : ",len(node.val), " , level : ",node.level)

@@ -5,6 +5,7 @@ from deap import base
 from deap import benchmarks
 from deap import creator
 from deap import tools
+from .grid_management import *
 
 
 class Selector():
@@ -90,34 +91,92 @@ class Selector_SHINE(Selector):
         return tools.selNSGA2(pq,mu)
 
 
-class Selector_SHINE_DISC(Selector):
+class Selector_SHINE_DISC(Selector): #M.O
     
     def __init__(self, **kwargs):
-        self.archive = Shine_Archive(100,100,alpha=kwargs["alpha"],beta=kwargs["beta"])
+        self.archive = Shine_Archive(600,600,alpha=kwargs["alpha"],beta=kwargs["beta"])
         self.grid = Grid(kwargs["grid_min_v"],kwargs["grid_max_v"],kwargs["dim_grid"])
 
     def update_with_offspring(self, offspring):
         for ind in offspring:
             self.grid.add(ind)
-            ind.bd = self.grid.get_grid_coord(ind)
         self.archive.update_offspring(offspring)
         pass
 
     def compute_objectifs(self, population):
         for i in population:
-            i.bd = self.grid.get_grid_coord(i)
             n = self.archive.search(Behaviour_Descriptor(i))
-            if(len(n.val) > 0):
-                i.fitness.values = (self.archive.beta / (self.archive.beta*n.level + len(n.val) ),)
+            if(n!= None and len(n.val) > 0):
+                i.fitness.values = (n.level  ,len(n.val) )
             else:
-                i.fitness.values = (-np.inf,)
+                i.fitness.values = (np.inf,self.archive.beta,len(n.val))
         pass
 
     def select(self, pq, mu):
         return tools.selNSGA2(pq,mu)
 
 
-class Selector_MAPElites(Selector):
+class Selector_SHINE_COL(Selector):
+    
+    def __init__(self, **kwargs):
+        self.archive = Shine_Archive_COL(600,600,alpha=kwargs["alpha"],beta=kwargs["beta"])
+        self.grid = Grid(kwargs["grid_min_v"],kwargs["grid_max_v"],kwargs["dim_grid"])
+
+    def update_with_offspring(self, offspring):
+        for ind in offspring:
+            self.grid.add(ind)
+        self.archive.update_offspring(offspring)
+        pass
+
+    def compute_objectifs(self, population):
+        for i in population:
+            n = self.archive.search(Behaviour_Descriptor(i))
+            if(n!= None and len(n.val) > 0):
+                i.fitness.values = (n.level  ,len(n.val) )
+            else:
+                i.fitness.values = (np.inf,self.archive.beta,len(n.val))
+        pass
+
+    def select(self, pq, mu):
+        return tools.selNSGA2(pq,mu)
+
+
+
+
+class Selector_SHINE_PARETO(Selector):
+    
+    def __init__(self, **kwargs):
+        self.archive = Shine_Archive_PARETO(600,600,alpha=kwargs["alpha"],beta=kwargs["beta"])
+        self.grid = Grid(kwargs["grid_min_v"],kwargs["grid_max_v"],kwargs["dim_grid"])
+
+    def update_with_offspring(self, offspring):
+        for ind in offspring:
+            self.grid.add(ind)
+        self.archive.update_offspring(offspring)
+        pass
+
+    def compute_objectifs(self, population):
+        for i in population:
+            n = self.archive.search(Behaviour_Descriptor(i))
+            if(n!= None and len(n.val) > 0):
+                i.fitness.values = (n.level  ,len(n.val) )
+            else:
+                i.fitness.values = (np.inf,self.archive.beta,len(n.val))
+        pass
+
+    def select(self, pq, mu):
+        return tools.selNSGA2(pq,mu)
+
+
+
+
+
+
+
+
+
+
+class Selector_MAPElites_FIT(Selector):
     def __init__(self, **kwargs):
         self.grid = Grid(kwargs["grid_min_v"],kwargs["grid_max_v"],kwargs["dim_grid"], comparator=self.compare)
 
@@ -136,5 +195,50 @@ class Selector_MAPElites(Selector):
 
     def select(self, pq, mu):
         self.update_with_offspring(pq)
-        inds = sorted(self.grid.content.values(), key = lambda x:(x.fitness.values[0]), reverse=True)[:mu]
+        inds = sorted(self.grid.content.values(), key = lambda x:(x.fitness.values[0]), reverse=True)[:mu] #Descendant
         return inds
+
+
+class Selector_MAPElites_COL(Selector):
+    def __init__(self, **kwargs):
+        self.grid = Grid(kwargs["grid_min_v"],kwargs["grid_max_v"],kwargs["dim_grid"])
+
+    def update_with_offspring(self, offspring):
+        for i in offspring:
+            self.grid.add(i)
+        pass
+
+    def compute_objectifs(self, population):
+        for i in population:
+            i.fitness.values = (i.fit, )
+        pass
+
+
+    def select(self, pq, mu):
+        self.update_with_offspring(pq)
+        inds = sorted(self.grid.content.values(), key = lambda x:(x.fitness.values[0]), reverse=True)[:mu] #Ascendant
+        return inds
+
+
+
+class Selector_MAPElites_POL(Selector):
+    def __init__(self, **kwargs):
+        self.grid = Grid_POL(kwargs["grid_min_v"],kwargs["grid_max_v"],kwargs["dim_grid"])
+
+    def update_with_offspring(self, offspring):
+        for i in offspring:
+            self.grid.add(i)
+        pass
+
+    def compute_objectifs(self, population):
+        for i in population:
+            i.fitness.values = (i.fit, )
+        pass
+
+
+    def select(self, pq, mu):
+        self.update_with_offspring(pq)
+        inds = sorted(self.grid.content.values(), key = lambda x:(x.fitness.values[0]), reverse=True)[:mu+1] #Descendant
+        #print("Selected individuals : ",[(self.grid.get_grid_coord(ind),ind.fit) for ind in inds])
+        return inds
+

@@ -42,7 +42,7 @@ def dump_grid(grid, resdir, dim=[100, 100]):
         for i in range(dim[0]):
             for j in range(dim[1]):
                 if ((i,j) in grid.keys()):
-                    mf.write("%.2f "%(grid[(i,j)].log["collision"]))
+                    mf.write("%.2f "%(grid[(i,j)].fit))
                 else:
                     mf.write("=== ")
             mf.write("\n")
@@ -77,7 +77,7 @@ class Grid():
     def add(self,ind ):
         (x,y) = self.get_grid_coord(ind)
         if((x,y) in self.content and self.ind_comparator(ind,self.content[(x,y)]) ):
-            #print((x,y) , "-> updated to : ",ind.log["collision"], " cuz it's less than : ",grid[(x,y)].log["collision"])
+            #print((x,y) , "-> updated to : ",ind.log["collision"], " cuz it's less than : ",self.content[(x,y)].log["collision"])
             self.content[(x,y)] = ind
         elif ((x,y) not in self.content):
             self.content[(x,y)] = ind
@@ -92,6 +92,60 @@ class Grid():
         dump_grid(self.content, resdir, self.dim)
         pass
         
+def cart2pol(x, y, goal = [60,60]):
+    rho = np.sqrt((x-goal[0])**2 + (y-goal[1])**2)
+    phi = np.arctan2((y-goal[1])**2, (x-goal[0])**2)
+    return(np.log(rho), phi)
+
+def get_pol_coord(x,y):
+    deg = np.linspace(0, 3.14, 150, endpoint=False)
+    dist = np.linspace(0, np.log(600*600), 150, endpoint=False)
+    rho, phi = cart2pol(x,y)
+    return (rho < dist).argmax(), (deg > phi).argmax()
+
+    
+
+class Grid_POL():
+
+    def __init__(self, mins, maxs, dims, comparator = None):
+        self.min_v = mins
+        self.max_v = maxs
+        self.dim = dims
+        self.ind_comparator = lambda ind1, ind2 : ind1.log["collision"] < ind2.log["collision"]
+        if(comparator):
+            self.ind_comparator = comparator
+        self.content = {}
+        self.stats = {}
+
+    
+    def get_grid_coord(self, ind):
+        deg = np.linspace(0, 3.14, 150, endpoint=False)
+        dist = np.linspace(-2, np.log(600*600), 150, endpoint=False)
+        dist = np.exp(dist)
+        rho, phi = cart2pol(ind.bd[0],ind.bd[1])
+        return (rho < dist).argmax(), (deg > phi).argmax()
+
+
+    
+    def add(self,ind ):
+        (x,y) = self.get_grid_coord(ind)
+        if((x,y) in self.content and self.ind_comparator(ind,self.content[(x,y)]) ):
+            #print((x,y) , "-> updated to : ",ind.log["collision"], " cuz it's less than : ",self.content[(x,y)].log["collision"])
+            self.content[(x,y)] = ind
+        elif ((x,y) not in self.content):
+            self.content[(x,y)] = ind
+
+    
+    def get_stats(self, resdir, nb_eval):
+        self.stats = stat_grid(self.content, resdir, nb_eval, self.dim)
+        return self.stats
+        
+
+    def dump(self, resdir):
+        dump_grid(self.content, resdir, self.dim)
+        pass
+        
+
 
 
 
